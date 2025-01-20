@@ -96,6 +96,11 @@ class IterableTest {
             """.trimMargin(), error.message
         )
     }
+
+    @Test
+    fun containsAtLeast_collection_all_elements_passes() {
+        assertThat(iterableOf(1, 2)).containsAtLeast(listOf(1, 2))
+    }
     //endregion
 
     //region containsOnly

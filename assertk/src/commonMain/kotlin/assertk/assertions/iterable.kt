@@ -63,6 +63,21 @@ fun Assert<Iterable<*>>.containsAtLeast(vararg elements: Any?) = given { actual 
 }
 
 /**
+ * Asserts the iterable contains at least the expected elements, in any order. The collection may also
+ * contain additional elements.
+ * @see [containsNone]
+ * @see [containsExactly]
+ * @see [containsOnly]
+ */
+fun <T> Assert<Iterable<T>>.containsAtLeast(elements: Iterable<T>) = given { actual ->
+    val notFound = elements.filterNot { it in actual }
+    if (notFound.isEmpty()) {
+        return
+    }
+    expected("to contain all:${show(elements)} but was:${show(actual)}\n elements not found:${show(notFound)}")
+}
+
+/**
  * Asserts the iterable contains only the expected elements, in any order. Duplicate values
  * in the expected and actual are ignored.
  *
